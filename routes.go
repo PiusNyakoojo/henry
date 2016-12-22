@@ -17,9 +17,9 @@ func InitRouter() http.Handler {
 
 	// Version 1
 	v1.Get("/chat", http.HandlerFunc(chat))
-	v1.NotFoundFunc(notFound)
 
 	r.SubRoute("/v1", v1)
+	r.NotFoundFunc(notFound)
 	n.UseHandler(r)
 	return n
 }
