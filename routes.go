@@ -17,6 +17,7 @@ func InitRouter() http.Handler {
 
 	// Version 1
 	v1.Get("/chat", http.HandlerFunc(chat))
+	v1.NotFoundFunc(notFound)
 
 	r.SubRoute("/v1", v1)
 	n.UseHandler(r)
@@ -34,4 +35,13 @@ func chat(w http.ResponseWriter, r *http.Request) {
 	}
 	message := r.URL.Query().Get("message")
 	w.Write([]byte(getResponse(sessionId.Value, message)))
+}
+
+// notFound returns some json containing information about this project
+func notFound(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`{
+		"404": "Hey I'm Henry, looks like you might be lost. This might help you out:",
+		"source_repo": "https://github.com/piusnyakoojo/henry"
+		}`))
 }
