@@ -14,7 +14,7 @@ func main() {
 		port = ":8080"
 	}
 
-	mongoSession, err := mgo.Dial(`mongodb://<your-username>:<your-password>@<your-mongodb-instance>/<your-db>`)
+	mongoSession, err := mgo.Dial(`mongodb://piusnyakoojo:test3124@ds117348.mlab.com:17348/car-data`)
 	if err != nil {
 		log.Fatal(err)
 	}
