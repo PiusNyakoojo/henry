@@ -1,8 +1,11 @@
 # henry
 Your friendly neighborhood chatbot eager to help you find a car
 
+## Try it!
+https://agile-plains-95079.herokuapp.com/
+
 ## API
-POST /v1/chat
+GET /v1/chat
 - message (string)
   - /v1/chat?message=hello%20henry
 
