@@ -25,14 +25,13 @@ func InitRouter() http.Handler {
 
 // chat returns a response for a given message and sessionId
 func chat(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	sessionId, err := r.Cookie("sessionId")
 	if err != nil {
 		log.Print(err)
-		fmt.Fprintf(w, fmt.Sprintf(`{"error": %v}`, err))
+		w.Write([]byte(fmt.Sprintf(`{"error": %v}`, err)))
 		return
 	}
 	message := r.URL.Query().Get("message")
-
-	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(getResponse(sessionId.Value, message)))
 }
