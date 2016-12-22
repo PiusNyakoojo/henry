@@ -100,5 +100,5 @@ var intros = []string{
 
 // getIntro returns an introduction message
 func getIntro() string {
-	return intros[rand.Intn(len(intros))]
+	return fmt.Sprintf(`{"result":{ "speech": "%v"}}`, intros[rand.Intn(len(intros))])
 }
