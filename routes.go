@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -40,8 +41,14 @@ func chat(w http.ResponseWriter, r *http.Request) {
 // notFound returns some json containing information about this project
 func notFound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{
-		"404": "Hey I'm Henry, looks like you might be lost. This might help you out:",
-		"source_repo": "https://github.com/piusnyakoojo/henry"
-		}`))
+	resp, _ := json.Marshal(struct {
+		StatusCode string `json:"statusCode"`
+		Message    string `json:"message"`
+		SourceRepo string `json:"source_repo"`
+	}{
+		"404",
+		"Hey I'm Henry :). Are you lost?",
+		"https://github.com/piusnyakoojo/henry",
+	})
+	w.Write(resp)
 }
