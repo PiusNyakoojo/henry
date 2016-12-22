@@ -11,11 +11,11 @@ GET /v1/chat
 
 ## Deploying to Heroku
 
-1. Create
+Create
 ```
 heroku create -b https://github.com/hr/heroku-buildpack-go.git
 ```
-2. Deploy
+Deploy
 ```
 git push heroku master
 ```
