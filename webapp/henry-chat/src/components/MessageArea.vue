@@ -1,23 +1,27 @@
 <template lang="html">
   <div class="message-area-wrapper">
     <div class="message-area-container">
-      <div class="message-area">
+
+      <hc-header></hc-header>
+      <section class="message-area">
         <ul class="message-list">
           <message v-for="item in messages" :item="item"></message>
         </ul>
         <input id="text-input" type="text" name="" value="" placeholder="Let's chat...">
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
 import Message from './Message.vue'
+import HcHeader from './Header.vue'
 
 export default {
   name: 'message-area',
   components: {
-    Message
+    Message,
+    HcHeader
   },
   data () {
     return {
@@ -67,8 +71,6 @@ export default {
 @import '../app';
 
 $message-indent: 70px;
-$message-area-max-width: 400px;
-$message-area-max-height: 500px;
 $message-h-margin: 10px;
 $input-horz-padding: 10px;
 $input-vert-padding: 10px;
@@ -89,7 +91,6 @@ $message-area-bottom-padding: 60px;
 }
 
 .message-area {
-  text-align: left;
   display: inline-block;
   margin: 0 auto;
   border: 1px solid $theme-color;
@@ -99,6 +100,7 @@ $message-area-bottom-padding: 60px;
     overflow-y: scroll;
     padding: 0px;
     margin: 0px;
+    text-align: left;
     list-style-type: none;
     max-height: $message-area-max-height;
 
@@ -110,10 +112,6 @@ $message-area-bottom-padding: 60px;
     .indented {
       margin-left: $message-indent;
     }
-  }
-
-  @media (max-width: $m-device-width) {
-    max-width: 100%;
   }
 }
 
