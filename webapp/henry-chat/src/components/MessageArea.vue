@@ -1,10 +1,12 @@
 <template lang="html">
-  <div class="message-area-container">
-    <div class="message-area">
-      <ul class="message-list">
-        <message v-for="item in messages" :item="item"></message>
-      </ul>
-      <input id="text-input" type="text" name="" value="" placeholder="Let's chat...">
+  <div class="message-area-wrapper">
+    <div class="message-area-container">
+      <div class="message-area">
+        <ul class="message-list">
+          <message v-for="item in messages" :item="item"></message>
+        </ul>
+        <input id="text-input" type="text" name="" value="" placeholder="Let's chat...">
+      </div>
     </div>
   </div>
 </template>
@@ -64,48 +66,54 @@ export default {
 <style lang="scss">
 @import '../app';
 
-$indent: 70px;
+$message-indent: 70px;
 $message-area-max-width: 400px;
+$message-area-max-height: 500px;
 $message-h-margin: 10px;
 $input-horz-padding: 10px;
 $input-vert-padding: 10px;
 
-.message-area-container {
-  display: table-cell;
-  width: 100vw;
-  height: 100vh;
-  vertical-align: bottom;
-  text-align: center;
+$message-area-bottom-padding: 60px;
+
+.message-area-wrapper {
+  position: relative;
+  width: inherit;
+  height: inherit;
 }
+
+.message-area-container {
+  position: absolute;
+  width: inherit;
+  text-align: center;
+  bottom: $message-area-bottom-padding;
+}
+
 .message-area {
   text-align: left;
   display: inline-block;
+  margin: 0 auto;
   border: 1px solid $theme-color;
   max-width: $message-area-max-width;
+
   .message-list {
     overflow-y: scroll;
-  }
-}
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    max-height: $message-area-max-height;
 
-ul {
-  padding: 0px;
-  margin: 0px;
-  list-style-type: none;
-
-  li {
-    margin-left: $message-h-margin;
-    margin-right: $message-h-margin;
-    margin-bottom: 10px;
-  }
-  li:nth-child(even) {
-    margin-left: $indent;
+    li {
+      margin-left: $message-h-margin;
+      margin-right: $message-h-margin;
+      margin-bottom: 10px;
+    }
+    .indented {
+      margin-left: $message-indent;
+    }
   }
 
-  @media (max-width: calc($message-area-max-width + 50px)) {
-    height: 800px;
-  }
-  @media (min-width: $message-area-max-width) {
-    height: 500px;
+  @media (max-width: $m-device-width) {
+    max-width: 100%;
   }
 }
 

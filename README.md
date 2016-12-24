@@ -1,3 +1,4 @@
+![Henry logo](https://github.com/PiusNyakoojo/henry/blob/master/webapp/henry-chat/public/logo.png "Henry")
 # henry
 Your friendly neighborhood chatbot eager to help you find a car
 
