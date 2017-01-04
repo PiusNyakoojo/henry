@@ -27,26 +27,22 @@ func InitRouter() http.Handler {
 
 // chat returns a response for a given message and sessionId
 func chat(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
 	sessionId, err := r.Cookie("sessionId")
 	if err != nil {
 		// Set cookie
 		sessionId = &http.Cookie{
 			Name:     "sessionId",
 			Value:    uuid.NewV4().String(),
-			HttpOnly: true,
+			HttpOnly: false,
 			Expires:  time.Now().Add(time.Hour),
 			MaxAge:   50000,
 		}
 		http.SetCookie(w, sessionId)
-		/*
-			log.Print(err)
-			w.Write([]byte(fmt.Sprintf(`{"error": %v}`, err)))
-			return
-		*/
 	}
 	message := r.URL.Query().Get("message")
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write([]byte(getResponse(sessionId.Value, message)))
 }
 

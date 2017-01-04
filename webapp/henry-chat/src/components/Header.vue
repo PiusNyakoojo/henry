@@ -24,8 +24,8 @@ export default {
 <style lang="scss">
 @import '../app';
 
-$online-status-size: 10px;
-$online-status-color: green;
+$online-status-size: 15px;
+$online-status-color: #47e47e;
 $header-content-padding: 15px;
 
 .header {

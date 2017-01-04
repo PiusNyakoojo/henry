@@ -6,59 +6,29 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    messages: [{
-      icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-      name: 'Henry',
-      message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-    }, {
-      icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-      name: 'Jenny',
-      message: 'Hey, can I has a car please boss?'
-    }, {
-      icon: 'http://www.w3schools.com/images/colorpicker.gif',
-      name: 'Ben',
-      message: 'Hey everyone, i\'m Ben'
-    }, {
-      icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-      name: 'Henry',
-      message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-    }, {
-      icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-      name: 'Jenny',
-      message: 'Hey, can I has a car please boss?'
-    }, {
-      icon: 'http://www.w3schools.com/images/colorpicker.gif',
-      name: 'Ben',
-      message: 'Hey everyone, i\'m Ben'
-    }, {
-      icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-      name: 'Henry',
-      message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-    }, {
-      icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-      name: 'Jenny',
-      message: 'Hey, can I has a car please boss?'
-    }, {
-      icon: 'http://www.w3schools.com/images/colorpicker.gif',
-      name: 'Ben',
-      message: 'Hey everyone, i\'m Ben'
-    }]
+    messages: []
   },
   actions: {
     FETCH_RESPONSE: ({ commit, dispatch, state }, { message }) => {
       return fetchResponse(message)
         .then(response => commit('ADD_MESSAGE', {
           sender: 'Henry',
-          icon: 'https://github.com/PiusNyakoojo/henry/blob/master/webapp/henry-chat/public/logo.png',
-          message: response
+          icon: 'https://raw.githubusercontent.com/PiusNyakoojo/henry/master/webapp/henry-chat/public/logo.png',
+          message: response.data.result.speech
         }))
+    },
+
+    SEND_MESSAGE: ({ commit, dispatch, state }, { message }) => {
+      commit('ADD_MESSAGE', {
+        sender: 'You',
+        icon: 'https://deborahking.com/old1/www.deborahkingcenter.com/s/lWlvaXycb0OmyqJiANLBdg/HappyPerson.jpg',
+        message: message
+      })
+      dispatch('FETCH_RESPONSE', { message })
     }
   },
   mutations: {
     ADD_MESSAGE: (state, { sender, icon, message }) => {
-      console.log('SETTING SENDER: ' + sender)
-      console.log('SETTING ICON: ' + icon)
-      console.log('SETTING MESSAGE: ' + message)
       state.messages.push({
         icon: icon,
         name: sender,
