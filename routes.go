@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-zoo/bone"
+	"github.com/twinj/uuid"
 	"github.com/urfave/negroni"
 )
 
@@ -31,9 +31,20 @@ func chat(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	sessionId, err := r.Cookie("sessionId")
 	if err != nil {
-		log.Print(err)
-		w.Write([]byte(fmt.Sprintf(`{"error": %v}`, err)))
-		return
+		// Set cookie
+		sessionId = &http.Cookie{
+			Name:     "sessionId",
+			Value:    uuid.NewV4().String(),
+			HttpOnly: true,
+			Expires:  time.Now().Add(time.Hour),
+			MaxAge:   50000,
+		}
+		http.SetCookie(w, sessionId)
+		/*
+			log.Print(err)
+			w.Write([]byte(fmt.Sprintf(`{"error": %v}`, err)))
+			return
+		*/
 	}
 	message := r.URL.Query().Get("message")
 	w.Write([]byte(getResponse(sessionId.Value, message)))

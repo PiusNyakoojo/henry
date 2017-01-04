@@ -9,6 +9,7 @@ https://agile-plains-95079.herokuapp.com/
 GET /v1/chat
 - message (string)
   - /v1/chat?message=hello%20henry
+    - requires cookie: sessionId (string)
 
 ## Deploying to Heroku
 
