@@ -1,13 +1,13 @@
 <template lang="html">
-  <div class="header">
+  <header class="header">
     <div class="header-content">
-      <div style="min-width: 5px; width: auto !important; width: 15px;">
+      <div class="online-status-wrapper">
         <div class="online-status"></div>
       </div>
       <h2 class="title">{{ title }}</h2>
       <button class="expand-btn" type="button" name="expand">Hello</button>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -24,42 +24,49 @@ export default {
 <style lang="scss">
 @import '../app';
 
-$header-height: 50px;
-$header-border-radius: 10px;
 $online-status-size: 10px;
 $online-status-color: green;
+$header-content-padding: 15px;
 
 .header {
   position: relative;
   display: inline-block;
   width: $message-area-max-width;
-  height: $header-height;
   background-color: $theme-color;
   border-radius: $header-border-radius $header-border-radius 0px 0px;
 }
+
 .header-content {
   display: inline-block;
-  white-space: nowrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 
   * {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
+  }
+
+  .online-status-wrapper {
+    position: absolute;
+    left: $header-content-padding;
+    display: inline-block;
   }
   .online-status {
-    float: left;
-    white-space: normal;
     width: $online-status-size;
     height: $online-status-size;
     border-radius: $online-status-size;
     background-color: $online-status-color;
   }
+
   .title {
     margin: 0px;
     padding: 0px;
   }
   .expand-btn {
-    vertical-align: middle;
+    position: absolute;
+    margin-top: 8px;
+    right: $header-content-padding;
   }
 }
 </style>

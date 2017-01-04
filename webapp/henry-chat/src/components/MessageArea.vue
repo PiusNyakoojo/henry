@@ -1,14 +1,15 @@
 <template lang="html">
   <div class="message-area-wrapper">
     <div class="message-area-container">
-
-      <hc-header></hc-header>
-      <section class="message-area">
-        <ul class="message-list">
-          <message v-for="item in messages" :item="item"></message>
-        </ul>
-        <input id="text-input" type="text" name="" value="" placeholder="Let's chat...">
-      </section>
+      <div class="message-area">
+        <hc-header></hc-header>
+        <section>
+          <ul class="message-list">
+            <message v-for="item in messages" :item="item"></message>
+          </ul>
+          <input id="text-input" type="text" name="" value="" placeholder="Let's chat...">
+        </section>
+      </div>
     </div>
   </div>
 </template>
@@ -94,6 +95,7 @@ $message-area-bottom-padding: 60px;
   display: inline-block;
   margin: 0 auto;
   border: 1px solid $theme-color;
+  border-radius: $header-border-radius $header-border-radius 0px 0px;
   max-width: $message-area-max-width;
 
   .message-list {
