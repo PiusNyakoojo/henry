@@ -26,44 +26,12 @@ export default {
   },
   data () {
     return {
-      messages: [{
-        icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-        name: 'Henry',
-        message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-      }, {
-        icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-        name: 'Jenny',
-        message: 'Hey, can I has a car please boss?'
-      }, {
-        icon: 'http://www.w3schools.com/images/colorpicker.gif',
-        name: 'Ben',
-        message: 'Hey everyone, i\'m Ben'
-      }, {
-        icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-        name: 'Henry',
-        message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-      }, {
-        icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-        name: 'Jenny',
-        message: 'Hey, can I has a car please boss?'
-      }, {
-        icon: 'http://www.w3schools.com/images/colorpicker.gif',
-        name: 'Ben',
-        message: 'Hey everyone, i\'m Ben'
-      }, {
-        icon: 'https://i.ytimg.com/vi/zJqLH8EA2rM/hqdefault.jpg',
-        name: 'Henry',
-        message: 'What\'s up world! It\'s henry! Let me help you with all your car troubles. I am excellent at finding awesome cars for people!!'
-      }, {
-        icon: 'https://i.ytimg.com/vi/ulysL4hs6_I/hqdefault.jpg',
-        name: 'Jenny',
-        message: 'Hey, can I has a car please boss?'
-      }, {
-        icon: 'http://www.w3schools.com/images/colorpicker.gif',
-        name: 'Ben',
-        message: 'Hey everyone, i\'m Ben'
-      }]
+      messages: []
     }
+  },
+
+  beforeMount () {
+    this.$store.dispatch('FETCH_RESPONSE', { message: 'Hello there' })
   }
 }
 </script>
@@ -104,7 +72,7 @@ $message-area-bottom-padding: 60px;
     margin: 0px;
     text-align: left;
     list-style-type: none;
-    max-height: $message-area-max-height;
+    height: $message-area-max-height;
 
     li {
       margin-left: $message-h-margin;

@@ -28,6 +28,7 @@ func InitRouter() http.Handler {
 // chat returns a response for a given message and sessionId
 func chat(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	sessionId, err := r.Cookie("sessionId")
 	if err != nil {
 		log.Print(err)
@@ -41,6 +42,7 @@ func chat(w http.ResponseWriter, r *http.Request) {
 // notFound returns some json containing information about this project
 func notFound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	resp, _ := json.Marshal(struct {
 		StatusCode string `json:"statusCode"`
 		Message    string `json:"message"`
