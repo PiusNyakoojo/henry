@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    messages: []
+    messages: [],
+    henryIsTyping: false
   },
   actions: {
     FETCH_RESPONSE: ({ commit, dispatch, state }, { message }) => {
@@ -29,11 +30,22 @@ const store = new Vuex.Store({
   },
   mutations: {
     ADD_MESSAGE: (state, { sender, icon, message }) => {
-      state.messages.push({
+      const messageItem = {
         icon: icon,
         name: sender,
         message: message
-      })
+      }
+      if (sender !== 'Henry') {
+        state.messages.push(messageItem)
+        return
+      }
+
+      state.henryIsTyping = true
+      // simulate Henry typing
+      setTimeout(() => {
+        state.henryIsTyping = false
+        state.messages.push(messageItem)
+      }, 2000)
     }
   },
   getters: {
