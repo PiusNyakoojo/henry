@@ -5,7 +5,9 @@
         <div class="online-status"></div>
       </div>
       <h2 class="title">{{ title }}</h2>
-      <button class="expand-btn" type="button" name="expand">Hello</button>
+      <button class="chat-toggle" type="button" name="expand"
+        v-bind:class="{ 'expand': this.expanded }"
+        v-on:click="toggleChat()"></button>
     </div>
   </header>
 </template>
@@ -15,7 +17,13 @@ export default {
   name: 'hc-header',
   data () {
     return {
-      title: 'Henry'
+      title: 'Henry',
+      expanded: true
+    }
+  },
+  methods: {
+    toggleChat: function () {
+      this.expanded = !this.expanded
     }
   }
 }
@@ -63,10 +71,49 @@ $header-content-padding: 15px;
     margin: 0px;
     padding: 0px;
   }
-  .expand-btn {
+  .chat-toggle {
     position: absolute;
     margin-top: 8px;
     right: $header-content-padding;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: white;
+      border-radius: 3px;
+      transition: transform 0.15s ease;
+    }
+    /* Vertical line */
+    &:before {
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      margin-left: -2px;
+    }
+    /* horizontal line */
+    &:after {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      margin-top: -2px;
+    }
+    &:focus, &:active {
+    }
+    &.expand {
+      &:before {
+        transform: rotate(90deg);
+      }
+      &:after {
+        transform: rotate(180deg);
+      }
+    }
   }
 }
 </style>
