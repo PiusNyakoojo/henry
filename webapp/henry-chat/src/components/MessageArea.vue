@@ -3,10 +3,13 @@
     <div class="message-area-container">
       <div class="message-area">
         <hc-header></hc-header>
-        <section class="message-section">
+        <section id="message-section" class="message-section">
           <ul id="message-list" class="message-list">
-            <message v-for="item in messages" :item="item" v-bind:class="{ 'user-message': item.name !== 'Henry', 'henry-message': item.name === 'Henry' }"></message>
+            <message v-for="item in messages" :item="item"
+              v-bind:class="{ 'user-message': item.name !== 'Henry', 'henry-message': item.name === 'Henry', 'show': item.name != '' }"></message>
           </ul>
+          <span class="typing-indicator"
+            v-bind:class="{ 'show': this.henryIsTyping }">Henry is typing...</span>
         </section>
         <input id="text-input" type="text" name="" value="" placeholder="Let's chat..."
           v-model="message"
@@ -30,7 +33,8 @@ export default {
     return {
       message: '',
       messages: this.$store.state.messages,
-      messageList: null
+      messageList: null,
+      henryIsTyping: this.$store.henryIsTyping
     }
   },
   methods: {
@@ -48,15 +52,13 @@ export default {
   watch: {
     messages: function () {
       // scroll down
-      /*
       setTimeout(() => {
-        this.messageList.scrollTop = this.messageList.scrollHeight
-      }, 100)
-      */
+        this.messageList.scrollTop = this.messageList.scrollHeight + 200
+      }, 200)
     }
   },
   mounted () {
-    this.messageList = document.getElementById('message-list')
+    this.messageList = document.getElementById('message-section')
     this.$store.dispatch('FETCH_RESPONSE', { message: '' })
   }
 }
@@ -90,29 +92,40 @@ $message-area-bottom-padding: 60px;
   z-index: 3;
   display: inline-block;
   margin: 0 auto;
-  border: 1px solid $theme-color;
-  border-radius: $header-border-radius $header-border-radius 0px 0px;
   max-width: $message-area-max-width;
 
   .message-section {
-    overflow-y: scroll;
+    position: relative;
+    overflow-x: hidden;
     height: $message-area-max-height;
+    border: 1px solid $theme-color;
   }
-
-  .message-list {
-    z-index: 2;
+  .typing-indicator {
+    display: none;
     position: absolute;
-    bottom: 40px;
+    bottom: 10px;
+    left: $message-h-margin;
+
+    &.show {
+      display: initial;
+    }
+  }
+  .message-list {
+    bottom: 0px;
     width: $message-area-max-width;
+    height: $message-area-max-height;
     padding: 0px;
     margin: 0px;
     text-align: left;
     list-style-type: none;
+    display: table-cell;
+    vertical-align: bottom;
 
     li {
       margin-left: $message-h-margin;
       margin-right: $message-h-margin;
       margin-bottom: 10px;
+      transition: visibility 0s, opacity 0.5s linear;
     }
     .henry-message {
       color: $theme-color;
@@ -126,11 +139,11 @@ $message-area-bottom-padding: 60px;
 #text-input {
   font-size: inherit;
   vertical-align: bottom;
-  border-top: 1px solid $theme-color;
-  border-bottom: 0px solid;
-  border-left: 0px solid;
-  border-right: 0px solid;
+  border-top: 0px solid;
+  border-bottom: 1px solid $theme-color;
+  border-left: 1px solid $theme-color;
+  border-right: 1px solid $theme-color;
   padding: $input-vert-padding $input-horz-padding;
-  width: calc(100% - #{$input-horz-padding} - #{$input-horz-padding});
+  width: calc(100% - #{$input-horz-padding} - #{$input-horz-padding} - 2px);
 }
 </style>
