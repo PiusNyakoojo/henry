@@ -11,6 +11,10 @@ GET /v1/chat
   - /v1/chat?message=hello%20henry
     - requires cookie: sessionId (string)
 
+POST /v1/register
+- token (string)
+  - /v1/register?token=123456
+
 ## Deploying to Heroku
 
 Create
